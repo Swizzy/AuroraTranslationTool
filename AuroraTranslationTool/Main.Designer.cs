@@ -64,9 +64,10 @@
             // 
             // loadorigbtn
             // 
-            this.loadorigbtn.Location = new System.Drawing.Point(12, 12);
+            this.loadorigbtn.Location = new System.Drawing.Point(16, 15);
+            this.loadorigbtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loadorigbtn.Name = "loadorigbtn";
-            this.loadorigbtn.Size = new System.Drawing.Size(108, 23);
+            this.loadorigbtn.Size = new System.Drawing.Size(144, 28);
             this.loadorigbtn.TabIndex = 0;
             this.loadorigbtn.Text = "Load Original";
             this.loadorigbtn.UseVisualStyleBackColor = true;
@@ -74,9 +75,10 @@
             // 
             // loadtransbtn
             // 
-            this.loadtransbtn.Location = new System.Drawing.Point(127, 12);
+            this.loadtransbtn.Location = new System.Drawing.Point(169, 15);
+            this.loadtransbtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loadtransbtn.Name = "loadtransbtn";
-            this.loadtransbtn.Size = new System.Drawing.Size(108, 23);
+            this.loadtransbtn.Size = new System.Drawing.Size(144, 28);
             this.loadtransbtn.TabIndex = 1;
             this.loadtransbtn.Text = "Load Translation";
             this.loadtransbtn.UseVisualStyleBackColor = true;
@@ -85,9 +87,10 @@
             // compilebtn
             // 
             this.compilebtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.compilebtn.Location = new System.Drawing.Point(355, 12);
+            this.compilebtn.Location = new System.Drawing.Point(473, 15);
+            this.compilebtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.compilebtn.Name = "compilebtn";
-            this.compilebtn.Size = new System.Drawing.Size(137, 23);
+            this.compilebtn.Size = new System.Drawing.Size(183, 28);
             this.compilebtn.TabIndex = 2;
             this.compilebtn.Text = "Compile Translation";
             this.compilebtn.UseVisualStyleBackColor = true;
@@ -97,9 +100,10 @@
             // 
             this.savetransbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.savetransbtn.Enabled = false;
-            this.savetransbtn.Location = new System.Drawing.Point(498, 12);
+            this.savetransbtn.Location = new System.Drawing.Point(664, 15);
+            this.savetransbtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.savetransbtn.Name = "savetransbtn";
-            this.savetransbtn.Size = new System.Drawing.Size(128, 23);
+            this.savetransbtn.Size = new System.Drawing.Size(171, 28);
             this.savetransbtn.TabIndex = 2;
             this.savetransbtn.Text = "Save Translation";
             this.savetransbtn.UseVisualStyleBackColor = true;
@@ -108,9 +112,11 @@
             // origgbox
             // 
             this.origgbox.Controls.Add(this.origbox);
-            this.origgbox.Location = new System.Drawing.Point(12, 41);
+            this.origgbox.Location = new System.Drawing.Point(16, 50);
+            this.origgbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.origgbox.Name = "origgbox";
-            this.origgbox.Size = new System.Drawing.Size(304, 100);
+            this.origgbox.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.origgbox.Size = new System.Drawing.Size(405, 123);
             this.origgbox.TabIndex = 3;
             this.origgbox.TabStop = false;
             this.origgbox.Text = "Original";
@@ -118,12 +124,13 @@
             // origbox
             // 
             this.origbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.origbox.Location = new System.Drawing.Point(3, 16);
+            this.origbox.Location = new System.Drawing.Point(4, 19);
+            this.origbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.origbox.Multiline = true;
             this.origbox.Name = "origbox";
             this.origbox.ReadOnly = true;
             this.origbox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.origbox.Size = new System.Drawing.Size(298, 81);
+            this.origbox.Size = new System.Drawing.Size(397, 100);
             this.origbox.TabIndex = 0;
             // 
             // hidenumbox
@@ -131,9 +138,10 @@
             this.hidenumbox.AutoSize = true;
             this.hidenumbox.Checked = true;
             this.hidenumbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.hidenumbox.Location = new System.Drawing.Point(12, 147);
+            this.hidenumbox.Location = new System.Drawing.Point(16, 181);
+            this.hidenumbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.hidenumbox.Name = "hidenumbox";
-            this.hidenumbox.Size = new System.Drawing.Size(132, 17);
+            this.hidenumbox.Size = new System.Drawing.Size(171, 21);
             this.hidenumbox.TabIndex = 4;
             this.hidenumbox.Text = "Hide Numerical values";
             this.hidenumbox.UseVisualStyleBackColor = true;
@@ -151,10 +159,11 @@
             this.listview.FullRowSelect = true;
             this.listview.GridLines = true;
             this.listview.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listview.Location = new System.Drawing.Point(12, 197);
+            this.listview.Location = new System.Drawing.Point(16, 242);
+            this.listview.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listview.MultiSelect = false;
             this.listview.Name = "listview";
-            this.listview.Size = new System.Drawing.Size(614, 178);
+            this.listview.Size = new System.Drawing.Size(817, 218);
             this.listview.TabIndex = 5;
             this.listview.UseCompatibleStateImageBehavior = false;
             this.listview.View = System.Windows.Forms.View.Details;
@@ -180,9 +189,10 @@
             // 
             this.savecurlinebtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.savecurlinebtn.Enabled = false;
-            this.savecurlinebtn.Location = new System.Drawing.Point(498, 147);
+            this.savecurlinebtn.Location = new System.Drawing.Point(664, 181);
+            this.savecurlinebtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.savecurlinebtn.Name = "savecurlinebtn";
-            this.savecurlinebtn.Size = new System.Drawing.Size(128, 23);
+            this.savecurlinebtn.Size = new System.Drawing.Size(171, 28);
             this.savecurlinebtn.TabIndex = 6;
             this.savecurlinebtn.Text = "Save Current Line";
             this.savecurlinebtn.UseVisualStyleBackColor = true;
@@ -192,9 +202,10 @@
             // 
             this.copybtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.copybtn.Enabled = false;
-            this.copybtn.Location = new System.Drawing.Point(334, 147);
+            this.copybtn.Location = new System.Drawing.Point(445, 181);
+            this.copybtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.copybtn.Name = "copybtn";
-            this.copybtn.Size = new System.Drawing.Size(158, 23);
+            this.copybtn.Size = new System.Drawing.Size(211, 28);
             this.copybtn.TabIndex = 6;
             this.copybtn.Text = "Copy Original to Translation";
             this.copybtn.UseVisualStyleBackColor = true;
@@ -205,9 +216,10 @@
             this.hideemptybox.AutoSize = true;
             this.hideemptybox.Checked = true;
             this.hideemptybox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.hideemptybox.Location = new System.Drawing.Point(150, 147);
+            this.hideemptybox.Location = new System.Drawing.Point(200, 181);
+            this.hideemptybox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.hideemptybox.Name = "hideemptybox";
-            this.hideemptybox.Size = new System.Drawing.Size(80, 17);
+            this.hideemptybox.Size = new System.Drawing.Size(102, 21);
             this.hideemptybox.TabIndex = 4;
             this.hideemptybox.Text = "Hide Empty";
             this.hideemptybox.UseVisualStyleBackColor = true;
@@ -216,9 +228,10 @@
             // clearbtn
             // 
             this.clearbtn.Enabled = false;
-            this.clearbtn.Location = new System.Drawing.Point(241, 12);
+            this.clearbtn.Location = new System.Drawing.Point(321, 15);
+            this.clearbtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.clearbtn.Name = "clearbtn";
-            this.clearbtn.Size = new System.Drawing.Size(75, 23);
+            this.clearbtn.Size = new System.Drawing.Size(100, 28);
             this.clearbtn.TabIndex = 1;
             this.clearbtn.Text = "Clear All";
             this.clearbtn.UseVisualStyleBackColor = true;
@@ -227,11 +240,12 @@
             // transbox
             // 
             this.transbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.transbox.Location = new System.Drawing.Point(3, 16);
+            this.transbox.Location = new System.Drawing.Point(4, 19);
+            this.transbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.transbox.Multiline = true;
             this.transbox.Name = "transbox";
             this.transbox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.transbox.Size = new System.Drawing.Size(298, 81);
+            this.transbox.Size = new System.Drawing.Size(397, 100);
             this.transbox.TabIndex = 0;
             this.transbox.TextChanged += new System.EventHandler(this.transbox_TextChanged);
             // 
@@ -239,9 +253,11 @@
             // 
             this.transgbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.transgbox.Controls.Add(this.transbox);
-            this.transgbox.Location = new System.Drawing.Point(322, 41);
+            this.transgbox.Location = new System.Drawing.Point(429, 50);
+            this.transgbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.transgbox.Name = "transgbox";
-            this.transgbox.Size = new System.Drawing.Size(304, 100);
+            this.transgbox.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.transgbox.Size = new System.Drawing.Size(405, 123);
             this.transgbox.TabIndex = 3;
             this.transgbox.TabStop = false;
             this.transgbox.Text = "Translation";
@@ -251,9 +267,10 @@
             this.hidefinishedbox.AutoSize = true;
             this.hidefinishedbox.Checked = true;
             this.hidefinishedbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.hidefinishedbox.Location = new System.Drawing.Point(236, 147);
+            this.hidefinishedbox.Location = new System.Drawing.Point(315, 181);
+            this.hidefinishedbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.hidefinishedbox.Name = "hidefinishedbox";
-            this.hidefinishedbox.Size = new System.Drawing.Size(90, 17);
+            this.hidefinishedbox.Size = new System.Drawing.Size(116, 21);
             this.hidefinishedbox.TabIndex = 4;
             this.hidefinishedbox.Text = "Hide Finished";
             this.hidefinishedbox.UseVisualStyleBackColor = true;
@@ -265,19 +282,19 @@
             this.setFinishedToolStripMenuItem,
             this.resetToolStripMenuItem});
             this.listviewContext.Name = "listviewContext";
-            this.listviewContext.Size = new System.Drawing.Size(138, 48);
+            this.listviewContext.Size = new System.Drawing.Size(158, 52);
             // 
             // setFinishedToolStripMenuItem
             // 
             this.setFinishedToolStripMenuItem.Name = "setFinishedToolStripMenuItem";
-            this.setFinishedToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.setFinishedToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
             this.setFinishedToolStripMenuItem.Text = "Set Finished";
             this.setFinishedToolStripMenuItem.Click += new System.EventHandler(this.setFinishedToolStripMenuItem_Click);
             // 
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
@@ -286,30 +303,32 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.statslabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 378);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 467);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(638, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(851, 25);
             this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(35, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(44, 20);
             this.toolStripStatusLabel1.Text = "Stats:";
             // 
             // statslabel
             // 
             this.statslabel.Name = "statslabel";
-            this.statslabel.Size = new System.Drawing.Size(31, 17);
+            this.statslabel.Size = new System.Drawing.Size(39, 20);
             this.statslabel.Text = "stats";
             // 
             // lbllabel1
             // 
             this.lbllabel1.AutoSize = true;
-            this.lbllabel1.Location = new System.Drawing.Point(9, 173);
+            this.lbllabel1.Location = new System.Drawing.Point(12, 213);
+            this.lbllabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbllabel1.Name = "lbllabel1";
-            this.lbllabel1.Size = new System.Drawing.Size(71, 13);
+            this.lbllabel1.Size = new System.Drawing.Size(94, 17);
             this.lbllabel1.TabIndex = 8;
             this.lbllabel1.Text = "Section Filter:";
             // 
@@ -317,27 +336,29 @@
             // 
             this.sections.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.sections.FormattingEnabled = true;
-            this.sections.Location = new System.Drawing.Point(86, 170);
+            this.sections.Location = new System.Drawing.Point(115, 209);
+            this.sections.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.sections.Name = "sections";
-            this.sections.Size = new System.Drawing.Size(240, 21);
+            this.sections.Size = new System.Drawing.Size(319, 24);
             this.sections.TabIndex = 9;
             this.sections.SelectedIndexChanged += new System.EventHandler(this.sections_SelectedIndexChanged);
             // 
             // keepsavepathbox
             // 
             this.keepsavepathbox.AutoSize = true;
-            this.keepsavepathbox.Location = new System.Drawing.Point(334, 174);
+            this.keepsavepathbox.Location = new System.Drawing.Point(445, 214);
+            this.keepsavepathbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.keepsavepathbox.Name = "keepsavepathbox";
-            this.keepsavepathbox.Size = new System.Drawing.Size(210, 17);
+            this.keepsavepathbox.Size = new System.Drawing.Size(279, 21);
             this.keepsavepathbox.TabIndex = 10;
             this.keepsavepathbox.Text = "Keep filename for last saved translation";
             this.keepsavepathbox.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(638, 400);
+            this.ClientSize = new System.Drawing.Size(851, 492);
             this.Controls.Add(this.keepsavepathbox);
             this.Controls.Add(this.sections);
             this.Controls.Add(this.lbllabel1);
@@ -355,9 +376,10 @@
             this.Controls.Add(this.clearbtn);
             this.Controls.Add(this.loadtransbtn);
             this.Controls.Add(this.loadorigbtn);
-            this.MinimumSize = new System.Drawing.Size(654, 391);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(866, 470);
             this.Name = "Main";
-            this.Text = "Aurora Translation Tool";
+            this.Text = "Aurora Translation Tool v{0}.{1} Build: {2}";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             this.origgbox.ResumeLayout(false);

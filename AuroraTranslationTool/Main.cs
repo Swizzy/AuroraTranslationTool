@@ -5,6 +5,7 @@
     using System.Drawing;
     using System.Globalization;
     using System.IO;
+    using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
@@ -19,9 +20,10 @@
 
         public Main() {
             InitializeComponent();
-            Text = Text + @" Update 5";
+            var ver = Assembly.GetAssembly(typeof(Main)).GetName().Version;
+            Text = string.Format(Text, ver.Major, ver.Minor, ver.Build);
             Main_SizeChanged(null, null);
-            _sectionFilters.Add(new SectionFilter(null, true));
+            MakeSectionsFilter();
             UpdateStats();
         }
 
@@ -193,7 +195,6 @@
         }
 
         private void MakeSectionsFilter() {
-            sections.DataSource = null;
             _sectionFilters.Clear();
             _sectionFilters.Add(new SectionFilter(null, true));
             foreach(var translationObject in _translationObjects) {
@@ -201,18 +202,24 @@
                     var exists = false;
                     var section = translationObject.Name.Substring(0, translationObject.Name.IndexOf(".", StringComparison.Ordinal));
                     foreach(var sectionFilter in _sectionFilters) {
-                        if(section == sectionFilter.Value) {
-                            exists = true;
-                            break;
-                        }
+                        if(section != sectionFilter.Value)
+                            continue;
+                        exists = true;
+                        break;
                     }
                     if(!exists)
                         _sectionFilters.Add(new SectionFilter(section));
                 }
                 catch {}
             }
-            sections.DataSource = _sectionFilters;
-            sections.SelectedIndex = 0;
+            var index = sections.SelectedIndex;
+            sections.Items.Clear();
+            sections.Items.AddRange(_sectionFilters.ToArray());
+            if (index < 0 || index > sections.Items.Count)
+                sections.SelectedIndex = 0;
+            else {
+                sections.SelectedIndex = index;
+            }
         }
 
         private void Savexml(string file) {
