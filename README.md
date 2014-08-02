@@ -33,6 +33,10 @@ Aurora Translation Tool
 =============
 = Changelog =
 =============
+v1.1.8
+- Fixed: The set all similar as finished function so it does what it's supposed to and doesn't just use the currently loaded translation
+- Fixed: Pressing enter when in the search form now behaves the same as if you had pressed the OK button
+
 v1.1.7
 - Fixed: Sections are now listed properly and it shows you what section is currently active properly...
 - Added: Search, you can now press Ctrl + F to search between the currently shown items in various ways...

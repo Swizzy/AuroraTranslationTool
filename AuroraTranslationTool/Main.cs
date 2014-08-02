@@ -518,10 +518,9 @@
         private void sections_SelectedIndexChanged(object sender, EventArgs e) { Setviewitems(); }
 
         private void setSimilarFinishedToolStripMenuItem_Click(object sender, EventArgs e) {
-            if(_currObj == null)
-                return;
+            var orig = listview.SelectedItems[0].SubItems[1].Text;
             foreach(var translationObject in _translationObjects) {
-                if(translationObject.Original != _currObj.Original)
+                if(translationObject.Original != orig)
                     continue;
                 translationObject.SetFinished();
             }

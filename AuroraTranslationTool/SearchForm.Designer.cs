@@ -31,6 +31,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.searchtermbox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ignorecasebox = new System.Windows.Forms.CheckBox();
             this.searchtransbox = new System.Windows.Forms.CheckBox();
             this.searchorigbox = new System.Windows.Forms.CheckBox();
             this.searchnamebox = new System.Windows.Forms.CheckBox();
@@ -40,7 +41,6 @@
             this.startswithbox = new System.Windows.Forms.RadioButton();
             this.okbtn = new System.Windows.Forms.Button();
             this.abortbtn = new System.Windows.Forms.Button();
-            this.ignorecasebox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -81,6 +81,18 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Search Options";
+            // 
+            // ignorecasebox
+            // 
+            this.ignorecasebox.AutoSize = true;
+            this.ignorecasebox.Checked = true;
+            this.ignorecasebox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ignorecasebox.Location = new System.Drawing.Point(367, 22);
+            this.ignorecasebox.Name = "ignorecasebox";
+            this.ignorecasebox.Size = new System.Drawing.Size(104, 21);
+            this.ignorecasebox.TabIndex = 2;
+            this.ignorecasebox.Text = "Ignore case";
+            this.ignorecasebox.UseVisualStyleBackColor = true;
             // 
             // searchtransbox
             // 
@@ -183,20 +195,9 @@
             this.abortbtn.UseVisualStyleBackColor = true;
             this.abortbtn.Click += new System.EventHandler(this.abortbtn_Click);
             // 
-            // ignorecasebox
-            // 
-            this.ignorecasebox.AutoSize = true;
-            this.ignorecasebox.Checked = true;
-            this.ignorecasebox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ignorecasebox.Location = new System.Drawing.Point(367, 22);
-            this.ignorecasebox.Name = "ignorecasebox";
-            this.ignorecasebox.Size = new System.Drawing.Size(104, 21);
-            this.ignorecasebox.TabIndex = 2;
-            this.ignorecasebox.Text = "Ignore case";
-            this.ignorecasebox.UseVisualStyleBackColor = true;
-            // 
             // SearchForm
             // 
+            this.AcceptButton = this.okbtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(518, 179);
