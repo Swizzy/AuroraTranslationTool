@@ -33,6 +33,10 @@ Aurora Translation Tool
 =============
 = Changelog =
 =============
+v1.1.7
+- Fixed: Sections are now listed properly and it shows you what section is currently active properly...
+- Added: Search, you can now press Ctrl + F to search between the currently shown items in various ways...
+- Added: You can now set all similar as finished
 
 v1.0.6 (Update 5)
 - Added: You can now save the path for the translation, this means that when you press the button to save the translation it'll automatically overwrite the file and not ask you where to save it...

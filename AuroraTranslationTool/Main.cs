@@ -14,6 +14,7 @@
     public sealed partial class Main: Form {
         private readonly List<SectionFilter> _sectionFilters = new List<SectionFilter>();
         private readonly List<TranslationObject> _translationObjects = new List<TranslationObject>();
+        internal SearchForm LastSearch;
         private TranslationObject _currObj;
         private bool _origLoaded;
         private string _savepath;
@@ -27,7 +28,7 @@
             UpdateStats();
         }
 
-        private void UpdateStats() {
+        internal void UpdateStats() {
             var finished = 0;
             var numeric = 0;
             var empty = 0;
@@ -39,10 +40,20 @@
                 if(translationObject.IsEmpty)
                     empty++;
             }
-            statslabel.Text = string.Format("{0} Strings loaded {1} Strings translated {2} Numerical values {3} Empty entries {4} Shown entries {5} Sections", _translationObjects.Count, finished, numeric, empty, listview.Items.Count, _sectionFilters.Count - 1);
+            statslabel.Text = string.Format("{0} Strings loaded {1} Strings translated {2} Numerical values {3} Empty entries {4} Shown entries {5} Sections", _translationObjects.Count, finished,
+                                            numeric, empty, listview.Items.Count, _sectionFilters.Count - 1);
         }
 
         protected override bool ProcessCmdKey(ref Message message, Keys keys) {
+            if(keys == (Keys.F | Keys.Control)) {
+                if(listview.Items.Count > 0) {
+                    if(LastSearch != null)
+                        LastSearch.ShowDialog();
+                    else
+                        new SearchForm(this).ShowDialog();
+                    return true;
+                }
+            }
             if(keys == (Keys.Shift | Keys.A | Keys.Control)) {
                 if(!savecurlinebtn.Enabled)
                     return base.ProcessCmdKey(ref message, keys);
@@ -50,24 +61,23 @@
                 var trans = transbox.Text.Replace(Environment.NewLine, "\\n");
                 if(
                     MessageBox.Show(string.Format("Are you sure you want to set all instances of {2}{0}{2}to{2}{1}{2}?", orig, trans, Environment.NewLine), @"Are you sure?",
-                                    MessageBoxButtons.YesNoCancel) == DialogResult.Yes) {
-                    foreach(var translationObject in _translationObjects) {
-                        if(translationObject.Original == orig) {
-                            translationObject.Translation = trans;
-                            translationObject.SetFinished();
-                        }
-                    }
-                    savecurlinebtn_Click(null, null);
+                                    MessageBoxButtons.YesNoCancel) != DialogResult.Yes)
+                    return true;
+                foreach(var translationObject in _translationObjects) {
+                    if(translationObject.Original != orig)
+                        continue;
+                    translationObject.Translation = trans;
+                    translationObject.SetFinished();
                 }
-                return true;
-            }
-            if(keys == (Keys.S | Keys.Control)) {
-                if(!savecurlinebtn.Enabled)
-                    return base.ProcessCmdKey(ref message, keys);
                 savecurlinebtn_Click(null, null);
                 return true;
             }
-            return base.ProcessCmdKey(ref message, keys);
+            if(keys != (Keys.S | Keys.Control))
+                return base.ProcessCmdKey(ref message, keys);
+            if(!savecurlinebtn.Enabled)
+                return base.ProcessCmdKey(ref message, keys);
+            savecurlinebtn_Click(null, null);
+            return true;
         }
 
         private void Main_SizeChanged(object sender, EventArgs e) {
@@ -124,7 +134,8 @@
             listview.Items.Clear();
             foreach(var translationObject in _translationObjects) {
                 if(!((SectionFilter)sections.SelectedItem).All) {
-                    if(!translationObject.Name.StartsWith(((SectionFilter)sections.SelectedItem).Value))
+                    var tmp = translationObject.Name.Substring(0, translationObject.Name.IndexOf(".", StringComparison.Ordinal));
+                    if(!tmp.Equals(((SectionFilter)sections.SelectedItem).Value, StringComparison.CurrentCultureIgnoreCase))
                         continue;
                 }
                 if(hidenumbox.Checked && translationObject.Numerical)
@@ -215,11 +226,10 @@
             var index = sections.SelectedIndex;
             sections.Items.Clear();
             sections.Items.AddRange(_sectionFilters.ToArray());
-            if (index < 0 || index > sections.Items.Count)
+            if(index < 0 || index > sections.Items.Count)
                 sections.SelectedIndex = 0;
-            else {
+            else
                 sections.SelectedIndex = index;
-            }
         }
 
         private void Savexml(string file) {
@@ -506,6 +516,17 @@
         }
 
         private void sections_SelectedIndexChanged(object sender, EventArgs e) { Setviewitems(); }
+
+        private void setSimilarFinishedToolStripMenuItem_Click(object sender, EventArgs e) {
+            if(_currObj == null)
+                return;
+            foreach(var translationObject in _translationObjects) {
+                if(translationObject.Original != _currObj.Original)
+                    continue;
+                translationObject.SetFinished();
+            }
+            Setviewitems();
+        }
 
         private class SectionFilter {
             internal readonly bool All;
