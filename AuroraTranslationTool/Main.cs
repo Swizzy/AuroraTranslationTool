@@ -40,6 +40,11 @@
                 if(translationObject.IsEmpty)
                     empty++;
             }
+            if(_sectionFilters.Count <= 0) {
+                _sectionFilters.Add(new SectionFilter("All", true));
+                sections.Items.AddRange(_sectionFilters.ToArray());
+                sections.SelectedIndex = 0;
+            }
             statslabel.Text = string.Format("{0} Strings loaded {1} Strings translated {2} Numerical values {3} Empty entries {4} Shown entries {5} Sections", _translationObjects.Count, finished,
                                             numeric, empty, listview.Items.Count, _sectionFilters.Count - 1);
         }
@@ -69,7 +74,15 @@
                     translationObject.Translation = trans;
                     translationObject.SetFinished();
                 }
-                savecurlinebtn_Click(null, null);
+                var list = new List<ListViewItem>();
+                foreach (ListViewItem lvi in listview.Items)
+                {
+                    if (lvi.SubItems[1].Text == orig)
+                        list.Add(lvi);
+                }
+                foreach (var lvi in list)
+                    listview.Items.Remove(lvi);
+                UpdateStats();
                 return true;
             }
             if(keys != (Keys.S | Keys.Control))
@@ -96,6 +109,7 @@
                 return;
             Parsexml(ofd.FileName, true);
             _origLoaded = true;
+            UpdateStats();
         }
 
         private void loadtransbtn_Click(object sender, EventArgs e) {
@@ -103,6 +117,7 @@
             if(ofd.ShowDialog() != DialogResult.OK)
                 return;
             Parsexml(ofd.FileName, false);
+            UpdateStats();
         }
 
         private void copybtn_Click(object sender, EventArgs e) {
@@ -119,15 +134,24 @@
                     continue;
                 translationObject.Translation = transbox.Text.Replace(Environment.NewLine, "\\n");
                 translationObject.SetFinished();
-                _currObj = null;
                 transbox.Text = "";
                 origbox.Text = "";
                 savetransbtn.Enabled = true;
                 savecurlinebtn.Enabled = false;
                 copybtn.Enabled = false;
-                Setviewitems();
-                return;
+                break;
             }
+            ListViewItem currItem = null;
+            foreach(ListViewItem lvi in listview.Items) {
+                if(lvi.Text != _currObj.Name)
+                    continue;
+                currItem = lvi;
+                break;
+            }
+            if(currItem != null)
+                listview.Items.Remove(currItem);
+            _currObj = null;
+            UpdateStats();
         }
 
         private void Setviewitems() {
@@ -281,7 +305,7 @@
             transbox.Text = "";
             listview.Items.Clear();
             _sectionFilters.Clear();
-            sections.DataSource = null;
+            sections.Items.Clear();
             UpdateStats();
         }
 
@@ -480,9 +504,19 @@
                 if(translationObject.Id != id)
                     continue;
                 translationObject.SetFinished();
-                Setviewitems();
-                return;
+                //Setviewitems();
+                break;
             }
+            ListViewItem currItem = null;
+            foreach(ListViewItem lvi in listview.Items) {
+                if(lvi.Tag != listview.SelectedItems[0].Tag)
+                    continue;
+                currItem = lvi;
+                break;
+            }
+            if(currItem != null)
+                listview.Items.Remove(currItem);
+            UpdateStats();
         }
 
         private void resetToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -494,9 +528,16 @@
                     continue;
                 translationObject.SetFinished(false);
                 translationObject.Translation = null;
-                Setviewitems();
-                return;
+                //Setviewitems();
+                break;
             }
+            foreach(ListViewItem lvi in listview.Items) {
+                if(lvi.Tag != listview.SelectedItems[0].Tag)
+                    continue;
+                listview.Items[lvi.Index].SubItems[2].Text = "";
+                break;
+            }
+            UpdateStats();
         }
 
         private void listview_MouseClick(object sender, MouseEventArgs e) {
@@ -524,7 +565,15 @@
                     continue;
                 translationObject.SetFinished();
             }
-            Setviewitems();
+            var list = new List<ListViewItem>();
+            foreach(ListViewItem lvi in listview.Items) {
+                if(lvi.SubItems[1].Text == orig)
+                    list.Add(lvi);
+            }
+            foreach(var lvi in list)
+                listview.Items.Remove(lvi);
+            //Setviewitems();
+            UpdateStats();
         }
 
         private class SectionFilter {

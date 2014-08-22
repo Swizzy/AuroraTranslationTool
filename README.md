@@ -33,6 +33,11 @@ Aurora Translation Tool
 =============
 = Changelog =
 =============
+v1.1.9
+- Fixed: When you reset/save/set finished any translation object it'll now remove it from the listview leaving you where you were in the lists...
+- Fixed: Pressing "Clear All" now properly clears the sections aswell
+- Fixed: When loading a original/translation the stats will now be updated properly
+
 v1.1.8
 - Fixed: The set all similar as finished function so it does what it's supposed to and doesn't just use the currently loaded translation
 - Fixed: Pressing enter when in the search form now behaves the same as if you had pressed the OK button
