@@ -134,6 +134,7 @@
                     continue;
                 translationObject.Translation = transbox.Text.Replace(Environment.NewLine, "\\n");
                 translationObject.SetFinished();
+                _currObj.Translation = translationObject.Translation;
                 transbox.Text = "";
                 origbox.Text = "";
                 savetransbtn.Enabled = true;
@@ -148,8 +149,10 @@
                 currItem = lvi;
                 break;
             }
-            if(currItem != null)
+            if (currItem != null && hidefinishedbox.Checked)
                 listview.Items.Remove(currItem);
+            else if(currItem != null)
+                listview.Items[listview.Items.IndexOf(currItem)].SubItems[2].Text = _currObj.Translation;
             _currObj = null;
             UpdateStats();
         }
@@ -382,6 +385,8 @@
                 if(res != DialogResult.OK)
                     return;
                 langfile = ofd.FileName;
+                if(keepsavepathbox.Checked)
+                    _savepath = langfile;
             }
             var lang = Path.GetFileNameWithoutExtension(langfile);
             var xuipkg = GetBinPath("xuipkg.exe");
@@ -621,6 +626,11 @@
             }
 
             internal void SetFinished(bool finished = true) { _finished = finished; }
+        }
+
+        private void keepsavepathbox_CheckedChanged(object sender, EventArgs e) {
+            if(!keepsavepathbox.Checked)
+                _savepath = "";
         }
     }
 }

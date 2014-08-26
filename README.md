@@ -33,6 +33,11 @@ Aurora Translation Tool
 =============
 = Changelog =
 =============
+v1.1.10
+- Fixed: When you save a translation and have the "Hide Finished" filter disabled the entry will no longer be removed from the view
+- Fixed: When you have the "Keep filename for last saved translation" checked and compile, it'll now save the path used during the compilation
+- Fixed: When you uncheck the above checkbox it'll now clear the saved path, so you can select another file without reloading entirely
+
 v1.1.9
 - Fixed: When you reset/save/set finished any translation object it'll now remove it from the listview leaving you where you were in the lists...
 - Fixed: Pressing "Clear All" now properly clears the sections aswell

@@ -49,6 +49,7 @@
             this.hidefinishedbox = new System.Windows.Forms.CheckBox();
             this.listviewContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setFinishedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setSimilarFinishedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -56,7 +57,6 @@
             this.lbllabel1 = new System.Windows.Forms.Label();
             this.sections = new System.Windows.Forms.ComboBox();
             this.keepsavepathbox = new System.Windows.Forms.CheckBox();
-            this.setSimilarFinishedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.origgbox.SuspendLayout();
             this.transgbox.SuspendLayout();
             this.listviewContext.SuspendLayout();
@@ -284,7 +284,7 @@
             this.setSimilarFinishedToolStripMenuItem,
             this.resetToolStripMenuItem});
             this.listviewContext.Name = "listviewContext";
-            this.listviewContext.Size = new System.Drawing.Size(208, 104);
+            this.listviewContext.Size = new System.Drawing.Size(208, 76);
             // 
             // setFinishedToolStripMenuItem
             // 
@@ -292,6 +292,13 @@
             this.setFinishedToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
             this.setFinishedToolStripMenuItem.Text = "Set Finished";
             this.setFinishedToolStripMenuItem.Click += new System.EventHandler(this.setFinishedToolStripMenuItem_Click);
+            // 
+            // setSimilarFinishedToolStripMenuItem
+            // 
+            this.setSimilarFinishedToolStripMenuItem.Name = "setSimilarFinishedToolStripMenuItem";
+            this.setSimilarFinishedToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+            this.setSimilarFinishedToolStripMenuItem.Text = "Set Similar Finished";
+            this.setSimilarFinishedToolStripMenuItem.Click += new System.EventHandler(this.setSimilarFinishedToolStripMenuItem_Click);
             // 
             // resetToolStripMenuItem
             // 
@@ -355,13 +362,7 @@
             this.keepsavepathbox.TabIndex = 10;
             this.keepsavepathbox.Text = "Keep filename for last saved translation";
             this.keepsavepathbox.UseVisualStyleBackColor = true;
-            // 
-            // setSimilarFinishedToolStripMenuItem
-            // 
-            this.setSimilarFinishedToolStripMenuItem.Name = "setSimilarFinishedToolStripMenuItem";
-            this.setSimilarFinishedToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
-            this.setSimilarFinishedToolStripMenuItem.Text = "Set Similar Finished";
-            this.setSimilarFinishedToolStripMenuItem.Click += new System.EventHandler(this.setSimilarFinishedToolStripMenuItem_Click);
+            this.keepsavepathbox.CheckedChanged += new System.EventHandler(this.keepsavepathbox_CheckedChanged);
             // 
             // Main
             // 
