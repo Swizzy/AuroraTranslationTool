@@ -44,6 +44,9 @@ Ctrl + Mousewheel -> Change the text size of the textboxes and listview
 =============
 = Changelog =
 =============
+v1.1.12
+- Fixed: I forgot to add the Yes, No and Cancel buttons to the messagebox asking for Locale changing... my bad!
+
 v1.1.11
 - Added: It'll now ask you if you want to update the locale version upon save if they don't match
 - Added: You can now select multipile items for reset/set finished/set similar finished, only the first one will be used to let you edit the translation tho...

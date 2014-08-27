@@ -365,7 +365,7 @@
 
         private void savetransbtn_Click(object sender, EventArgs e) {
             if(!IsLocaleMatch())
-                if(MessageBox.Show(string.Format("Do you want to update the Locale Version from {0} to {1}?", _locverObj.Translation, _locverObj.Original)) == DialogResult.Yes)
+                if(MessageBox.Show(string.Format("Do you want to update the Locale Version from {0} to {1}?", _locverObj.Translation, _locverObj.Original), @"Do you want to update the locale version?", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
                     _locverObj.Translation = _locverObj.Original;
             if(!keepsavepathbox.Checked || string.IsNullOrEmpty(_savepath)) {
                 var sfd = new SaveFileDialog {
