@@ -21,6 +21,17 @@ Aurora Translation Tool
 - In order to compile the skin/translation you also need the current skin for Aurora, when you press compile it'll ask you for it, if you press cancel it'll use "Skins\Default.xzp"
 - You'll also of course need the translation files (en-US.xml from the aurora translation helper or whatever updated release Phoenix has made since)
 
+======================
+= Keyboard shortcuts =
+======================
+
+Ctrl + S -> Saves the current line
+Ctrl + F -> Brings up the search form (basically a custom filter really)
+Ctrl + Shift + A -> It'll ask you if you want to set all similar items (same original string) to whatever you have in the translation box right now
+Ctrl + Shift + S -> Save current translation
+Ctrl + Shift + C -> Trigger compilation
+Ctrl + Mousewheel -> Change the text size of the textboxes and listview
+
 ===========
 = Credits =
 ===========
@@ -33,6 +44,15 @@ Aurora Translation Tool
 =============
 = Changelog =
 =============
+v1.1.11
+- Added: It'll now ask you if you want to update the locale version upon save if they don't match
+- Added: You can now select multipile items for reset/set finished/set similar finished, only the first one will be used to let you edit the translation tho...
+- Added: You can now sort the listview items (first ascending, second descending) just click the column you want to sort on =)
+- Added: You can now copy the name of the first selected item in the listview when you right click it...
+- Added: Holding Ctrl while scrolling your mousewheel will now increase the textsize of both the textboxes and the listview...
+- Added: Pressing Ctrl + Shift + S will now save the current translation
+- Added: Pressing Ctrl + Shift + C will now trigger a compilation
+
 v1.1.10
 - Fixed: When you save a translation and have the "Hide Finished" filter disabled the entry will no longer be removed from the view
 - Fixed: When you have the "Keep filename for last saved translation" checked and compile, it'll now save the path used during the compilation

@@ -57,6 +57,7 @@
             this.lbllabel1 = new System.Windows.Forms.Label();
             this.sections = new System.Windows.Forms.ComboBox();
             this.keepsavepathbox = new System.Windows.Forms.CheckBox();
+            this.copyNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.origgbox.SuspendLayout();
             this.transgbox.SuspendLayout();
             this.listviewContext.SuspendLayout();
@@ -159,15 +160,14 @@
             this.columnHeader3});
             this.listview.FullRowSelect = true;
             this.listview.GridLines = true;
-            this.listview.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listview.Location = new System.Drawing.Point(16, 242);
             this.listview.Margin = new System.Windows.Forms.Padding(4);
-            this.listview.MultiSelect = false;
             this.listview.Name = "listview";
             this.listview.Size = new System.Drawing.Size(817, 218);
             this.listview.TabIndex = 5;
             this.listview.UseCompatibleStateImageBehavior = false;
             this.listview.View = System.Windows.Forms.View.Details;
+            this.listview.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listview_ColumnClick);
             this.listview.DoubleClick += new System.EventHandler(this.listview_DoubleClick);
             this.listview.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listview_MouseClick);
             // 
@@ -282,9 +282,10 @@
             this.listviewContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setFinishedToolStripMenuItem,
             this.setSimilarFinishedToolStripMenuItem,
-            this.resetToolStripMenuItem});
+            this.resetToolStripMenuItem,
+            this.copyNameToolStripMenuItem});
             this.listviewContext.Name = "listviewContext";
-            this.listviewContext.Size = new System.Drawing.Size(208, 76);
+            this.listviewContext.Size = new System.Drawing.Size(208, 128);
             // 
             // setFinishedToolStripMenuItem
             // 
@@ -364,6 +365,13 @@
             this.keepsavepathbox.UseVisualStyleBackColor = true;
             this.keepsavepathbox.CheckedChanged += new System.EventHandler(this.keepsavepathbox_CheckedChanged);
             // 
+            // copyNameToolStripMenuItem
+            // 
+            this.copyNameToolStripMenuItem.Name = "copyNameToolStripMenuItem";
+            this.copyNameToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+            this.copyNameToolStripMenuItem.Text = "Copy Name";
+            this.copyNameToolStripMenuItem.Click += new System.EventHandler(this.copyNameToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -434,6 +442,7 @@
         private System.Windows.Forms.CheckBox keepsavepathbox;
         internal System.Windows.Forms.ListView listview;
         private System.Windows.Forms.ToolStripMenuItem setSimilarFinishedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyNameToolStripMenuItem;
     }
 }
 

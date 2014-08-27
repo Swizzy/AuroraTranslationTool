@@ -16,6 +16,7 @@
         private readonly List<TranslationObject> _translationObjects = new List<TranslationObject>();
         internal SearchForm LastSearch;
         private TranslationObject _currObj;
+        private TranslationObject _locverObj;
         private bool _origLoaded;
         private string _savepath;
 
@@ -26,6 +27,27 @@
             Main_SizeChanged(null, null);
             MakeSectionsFilter();
             UpdateStats();
+            MouseWheel += OnMouseWheel;
+        }
+
+        private void OnMouseWheel(object sender, MouseEventArgs e) {
+            if(ModifierKeys != Keys.Control)
+                return;
+            if(e.Delta > 0) {
+                var font = new Font(origbox.Font.Name, origbox.Font.SizeInPoints + 0.1F);
+                origbox.Font = font;
+                transbox.Font = font;
+                listview.Font = new Font(listview.Font.Name, listview.Font.SizeInPoints + 0.1F);
+            }
+            else {
+                if (origbox.Font.SizeInPoints < 7.8F)
+                    return;
+                var font = new Font(origbox.Font.Name, origbox.Font.SizeInPoints -0.1F);
+                origbox.Font = font;
+                transbox.Font = font;
+                listview.Font = new Font(listview.Font.Name, listview.Font.SizeInPoints -0.1F);
+
+            }
         }
 
         internal void UpdateStats() {
@@ -75,16 +97,19 @@
                     translationObject.SetFinished();
                 }
                 var list = new List<ListViewItem>();
-                foreach (ListViewItem lvi in listview.Items)
-                {
-                    if (lvi.SubItems[1].Text == orig)
+                foreach(ListViewItem lvi in listview.Items) {
+                    if(lvi.SubItems[1].Text == orig)
                         list.Add(lvi);
                 }
-                foreach (var lvi in list)
+                foreach(var lvi in list)
                     listview.Items.Remove(lvi);
                 UpdateStats();
                 return true;
             }
+            if (keys == (Keys.S | Keys.Shift | Keys.Control))
+                savetransbtn_Click(null, null);
+            if (keys == (Keys.C | Keys.Shift | Keys.Control))
+                compilebtn_Click(null, null);
             if(keys != (Keys.S | Keys.Control))
                 return base.ProcessCmdKey(ref message, keys);
             if(!savecurlinebtn.Enabled)
@@ -149,7 +174,7 @@
                 currItem = lvi;
                 break;
             }
-            if (currItem != null && hidefinishedbox.Checked)
+            if(currItem != null && hidefinishedbox.Checked)
                 listview.Items.Remove(currItem);
             else if(currItem != null)
                 listview.Items[listview.Items.IndexOf(currItem)].SubItems[2].Text = _currObj.Translation;
@@ -339,6 +364,9 @@
         }
 
         private void savetransbtn_Click(object sender, EventArgs e) {
+            if(!IsLocaleMatch())
+                if(MessageBox.Show(string.Format("Do you want to update the Locale Version from {0} to {1}?", _locverObj.Translation, _locverObj.Original)) == DialogResult.Yes)
+                    _locverObj.Translation = _locverObj.Original;
             if(!keepsavepathbox.Checked || string.IsNullOrEmpty(_savepath)) {
                 var sfd = new SaveFileDialog {
                                                  AddExtension = true,
@@ -346,7 +374,6 @@
                                              };
                 if(sfd.ShowDialog() != DialogResult.OK)
                     return;
-
                 Savexml(sfd.FileName);
                 if(keepsavepathbox.Checked)
                     _savepath = sfd.FileName;
@@ -354,6 +381,16 @@
             else
                 Savexml(_savepath);
             savetransbtn.Enabled = false;
+        }
+
+        private bool IsLocaleMatch() {
+            foreach(var obj in _translationObjects) {
+                if(!obj.Name.EndsWith("LOCALE_VERSION", StringComparison.CurrentCultureIgnoreCase))
+                    continue;
+                _locverObj = obj;
+                return obj.Original == obj.Translation;
+            }
+            return true; // Let's just say it matches, we didn't find it... so... nothing to update anyways..
         }
 
         private static string GetBinPath(string file) {
@@ -504,43 +541,46 @@
         private void FilterChanged(object sender, EventArgs e) { Setviewitems(); }
 
         private void setFinishedToolStripMenuItem_Click(object sender, EventArgs e) {
-            var id = int.Parse(listview.SelectedItems[0].Tag.ToString());
-            foreach(var translationObject in _translationObjects) {
-                if(translationObject.Id != id)
-                    continue;
-                translationObject.SetFinished();
-                //Setviewitems();
-                break;
+            foreach(ListViewItem sel in listview.SelectedItems) {
+                var id = int.Parse(sel.Tag.ToString());
+                foreach(var translationObject in _translationObjects) {
+                    if(translationObject.Id != id)
+                        continue;
+                    translationObject.SetFinished();
+                    break;
+                }
+                ListViewItem currItem = null;
+                foreach(ListViewItem lvi in listview.Items) {
+                    if(lvi.Tag != sel.Tag)
+                        continue;
+                    currItem = lvi;
+                    break;
+                }
+                if(currItem != null)
+                    listview.Items.Remove(currItem);
             }
-            ListViewItem currItem = null;
-            foreach(ListViewItem lvi in listview.Items) {
-                if(lvi.Tag != listview.SelectedItems[0].Tag)
-                    continue;
-                currItem = lvi;
-                break;
-            }
-            if(currItem != null)
-                listview.Items.Remove(currItem);
             UpdateStats();
         }
 
         private void resetToolStripMenuItem_Click(object sender, EventArgs e) {
-            if(MessageBox.Show(@"Are you sure you want to reset the selected translation?", @"Are you sure?", MessageBoxButtons.YesNoCancel) != DialogResult.Yes)
+            if(MessageBox.Show(@"Are you sure you want to reset the selected translation(s)?", @"Are you sure?", MessageBoxButtons.YesNoCancel) != DialogResult.Yes)
                 return;
-            var id = int.Parse(listview.SelectedItems[0].Tag.ToString());
-            foreach(var translationObject in _translationObjects) {
-                if(translationObject.Id != id)
-                    continue;
-                translationObject.SetFinished(false);
-                translationObject.Translation = null;
-                //Setviewitems();
-                break;
-            }
-            foreach(ListViewItem lvi in listview.Items) {
-                if(lvi.Tag != listview.SelectedItems[0].Tag)
-                    continue;
-                listview.Items[lvi.Index].SubItems[2].Text = "";
-                break;
+            foreach(ListViewItem sel in listview.SelectedItems) {
+                var id = int.Parse(sel.Tag.ToString());
+                foreach(var translationObject in _translationObjects) {
+                    if(translationObject.Id != id)
+                        continue;
+                    translationObject.SetFinished(false);
+                    translationObject.Translation = null;
+                    //Setviewitems();
+                    break;
+                }
+                foreach(ListViewItem lvi in listview.Items) {
+                    if(lvi.Tag != sel.Tag)
+                        continue;
+                    listview.Items[lvi.Index].SubItems[2].Text = "";
+                    break;
+                }
             }
             UpdateStats();
         }
@@ -564,22 +604,38 @@
         private void sections_SelectedIndexChanged(object sender, EventArgs e) { Setviewitems(); }
 
         private void setSimilarFinishedToolStripMenuItem_Click(object sender, EventArgs e) {
-            var orig = listview.SelectedItems[0].SubItems[1].Text;
-            foreach(var translationObject in _translationObjects) {
-                if(translationObject.Original != orig)
-                    continue;
-                translationObject.SetFinished();
-            }
             var list = new List<ListViewItem>();
-            foreach(ListViewItem lvi in listview.Items) {
-                if(lvi.SubItems[1].Text == orig)
-                    list.Add(lvi);
+            foreach(ListViewItem sel in listview.SelectedItems) {
+                var orig = sel.SubItems[1].Text;
+                foreach(var translationObject in _translationObjects) {
+                    if(translationObject.Original != orig)
+                        continue;
+                    translationObject.SetFinished();
+                }
+                foreach(ListViewItem lvi in listview.Items) {
+                    if(lvi.SubItems[1].Text == orig && !list.Contains(lvi))
+                        list.Add(lvi);
+                }
             }
             foreach(var lvi in list)
                 listview.Items.Remove(lvi);
             //Setviewitems();
             UpdateStats();
         }
+
+        private void keepsavepathbox_CheckedChanged(object sender, EventArgs e) {
+            if(!keepsavepathbox.Checked)
+                _savepath = "";
+        }
+
+        private void listview_ColumnClick(object sender, ColumnClickEventArgs e) {
+            if(listview.ListViewItemSorter == null || ((ListViewColumnSorter)listview.ListViewItemSorter).Column != e.Column)
+                listview.ListViewItemSorter = new ListViewColumnSorter(e.Column, true);
+            else
+                listview.ListViewItemSorter = new ListViewColumnSorter(e.Column, !((ListViewColumnSorter)listview.ListViewItemSorter).Ascending);
+        }
+
+        private void copyNameToolStripMenuItem_Click(object sender, EventArgs e) { Clipboard.SetText(listview.SelectedItems[0].Text); }
 
         private class SectionFilter {
             internal readonly bool All;
@@ -626,11 +682,6 @@
             }
 
             internal void SetFinished(bool finished = true) { _finished = finished; }
-        }
-
-        private void keepsavepathbox_CheckedChanged(object sender, EventArgs e) {
-            if(!keepsavepathbox.Checked)
-                _savepath = "";
         }
     }
 }
