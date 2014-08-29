@@ -44,6 +44,11 @@ Ctrl + Mousewheel -> Change the text size of the textboxes and listview
 =============
 = Changelog =
 =============
+v1.1.13
+- Added: Filters for when you're asked for translation/skin, previously it caused confusion for some, now you don't even see the other type of file(s)
+- Added: The app will no longer crash on error while compiling the translation, instead you'll be shown what the error was and it'll continue from there...
+- Added: You can now do a full search or use the search function as previously (a custom filter on the currently visuable items) full search however ignores other types of filters atm... to tired to fix that...
+
 v1.1.12
 - Fixed: I forgot to add the Yes, No and Cancel buttons to the messagebox asking for Locale changing... my bad!
 

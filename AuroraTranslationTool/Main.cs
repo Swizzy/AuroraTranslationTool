@@ -13,7 +13,7 @@
 
     public sealed partial class Main: Form {
         private readonly List<SectionFilter> _sectionFilters = new List<SectionFilter>();
-        private readonly List<TranslationObject> _translationObjects = new List<TranslationObject>();
+        internal readonly List<TranslationObject> TranslationObjects = new List<TranslationObject>();
         internal SearchForm LastSearch;
         private TranslationObject _currObj;
         private TranslationObject _locverObj;
@@ -40,13 +40,12 @@
                 listview.Font = new Font(listview.Font.Name, listview.Font.SizeInPoints + 0.1F);
             }
             else {
-                if (origbox.Font.SizeInPoints < 7.8F)
+                if(origbox.Font.SizeInPoints < 7.8F)
                     return;
-                var font = new Font(origbox.Font.Name, origbox.Font.SizeInPoints -0.1F);
+                var font = new Font(origbox.Font.Name, origbox.Font.SizeInPoints - 0.1F);
                 origbox.Font = font;
                 transbox.Font = font;
-                listview.Font = new Font(listview.Font.Name, listview.Font.SizeInPoints -0.1F);
-
+                listview.Font = new Font(listview.Font.Name, listview.Font.SizeInPoints - 0.1F);
             }
         }
 
@@ -54,7 +53,7 @@
             var finished = 0;
             var numeric = 0;
             var empty = 0;
-            foreach(var translationObject in _translationObjects) {
+            foreach(var translationObject in TranslationObjects) {
                 if(translationObject.Finished)
                     finished++;
                 if(translationObject.Numerical)
@@ -67,7 +66,7 @@
                 sections.Items.AddRange(_sectionFilters.ToArray());
                 sections.SelectedIndex = 0;
             }
-            statslabel.Text = string.Format("{0} Strings loaded {1} Strings translated {2} Numerical values {3} Empty entries {4} Shown entries {5} Sections", _translationObjects.Count, finished,
+            statslabel.Text = string.Format("{0} Strings loaded {1} Strings translated {2} Numerical values {3} Empty entries {4} Shown entries {5} Sections", TranslationObjects.Count, finished,
                                             numeric, empty, listview.Items.Count, _sectionFilters.Count - 1);
         }
 
@@ -90,7 +89,7 @@
                     MessageBox.Show(string.Format("Are you sure you want to set all instances of {2}{0}{2}to{2}{1}{2}?", orig, trans, Environment.NewLine), @"Are you sure?",
                                     MessageBoxButtons.YesNoCancel) != DialogResult.Yes)
                     return true;
-                foreach(var translationObject in _translationObjects) {
+                foreach(var translationObject in TranslationObjects) {
                     if(translationObject.Original != orig)
                         continue;
                     translationObject.Translation = trans;
@@ -106,9 +105,9 @@
                 UpdateStats();
                 return true;
             }
-            if (keys == (Keys.S | Keys.Shift | Keys.Control))
+            if(keys == (Keys.S | Keys.Shift | Keys.Control))
                 savetransbtn_Click(null, null);
-            if (keys == (Keys.C | Keys.Shift | Keys.Control))
+            if(keys == (Keys.C | Keys.Shift | Keys.Control))
                 compilebtn_Click(null, null);
             if(keys != (Keys.S | Keys.Control))
                 return base.ProcessCmdKey(ref message, keys);
@@ -154,7 +153,7 @@
         private void savecurlinebtn_Click(object sender, EventArgs e) {
             if(_currObj == null)
                 return;
-            foreach(var translationObject in _translationObjects) {
+            foreach(var translationObject in TranslationObjects) {
                 if(translationObject.Id != _currObj.Id)
                     continue;
                 translationObject.Translation = transbox.Text.Replace(Environment.NewLine, "\\n");
@@ -184,7 +183,7 @@
 
         private void Setviewitems() {
             listview.Items.Clear();
-            foreach(var translationObject in _translationObjects) {
+            foreach(var translationObject in TranslationObjects) {
                 if(!((SectionFilter)sections.SelectedItem).All) {
                     var tmp = translationObject.Name.Substring(0, translationObject.Name.IndexOf(".", StringComparison.Ordinal));
                     if(!tmp.Equals(((SectionFilter)sections.SelectedItem).Value, StringComparison.CurrentCultureIgnoreCase))
@@ -218,7 +217,7 @@
                             break;
                         case "value":
                             TranslationObject tobj = null;
-                            foreach(var translationObject in _translationObjects) {
+                            foreach(var translationObject in TranslationObjects) {
                                 if(translationObject.Name != name)
                                     continue;
                                 tobj = translationObject;
@@ -226,7 +225,7 @@
                                 break;
                             }
                             if(tobj == null)
-                                tobj = new TranslationObject(_translationObjects.Count, name);
+                                tobj = new TranslationObject(TranslationObjects.Count, name);
                             xml.Read();
                             var value = xml.Value;
                             if(!exists) {
@@ -234,10 +233,10 @@
                                     tobj.Original = value.Replace("\n", "\\n");
                                 else
                                     tobj.Translation = value.Replace("\n", "\\n");
-                                _translationObjects.Add(tobj);
+                                TranslationObjects.Add(tobj);
                             }
                             else {
-                                foreach(var translationObject in _translationObjects) {
+                                foreach(var translationObject in TranslationObjects) {
                                     if(translationObject.Id != tobj.Id)
                                         continue;
                                     if(orig)
@@ -260,7 +259,7 @@
         private void MakeSectionsFilter() {
             _sectionFilters.Clear();
             _sectionFilters.Add(new SectionFilter(null, true));
-            foreach(var translationObject in _translationObjects) {
+            foreach(var translationObject in TranslationObjects) {
                 try {
                     var exists = false;
                     var section = translationObject.Name.Substring(0, translationObject.Name.IndexOf(".", StringComparison.Ordinal));
@@ -293,7 +292,7 @@
             using(var xml = XmlWriter.Create(file, settings)) {
                 xml.WriteStartElement("root");
                 xml.WriteWhitespace("\n");
-                foreach(var item in _translationObjects) {
+                foreach(var item in TranslationObjects) {
                     if(item.Original == null && _origLoaded)
                         continue;
                     xml.WriteStartElement("data");
@@ -327,7 +326,7 @@
             savecurlinebtn.Enabled = false;
             copybtn.Enabled = false;
             savetransbtn.Enabled = false;
-            _translationObjects.Clear();
+            TranslationObjects.Clear();
             _currObj = null;
             origbox.Text = "";
             transbox.Text = "";
@@ -345,7 +344,7 @@
             }
             _currObj = null;
             var id = int.Parse(listview.SelectedItems[0].Tag.ToString());
-            foreach(var translationObject in _translationObjects) {
+            foreach(var translationObject in TranslationObjects) {
                 if(translationObject.Id != id)
                     continue;
                 _currObj = translationObject;
@@ -364,13 +363,17 @@
         }
 
         private void savetransbtn_Click(object sender, EventArgs e) {
-            if(!IsLocaleMatch())
-                if(MessageBox.Show(string.Format("Do you want to update the Locale Version from {0} to {1}?", _locverObj.Translation, _locverObj.Original), @"Do you want to update the locale version?", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
+            if(!IsLocaleMatch()) {
+                if(
+                    MessageBox.Show(string.Format("Do you want to update the Locale Version from {0} to {1}?", _locverObj.Translation, _locverObj.Original),
+                                    @"Do you want to update the locale version?", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
                     _locverObj.Translation = _locverObj.Original;
+            }
             if(!keepsavepathbox.Checked || string.IsNullOrEmpty(_savepath)) {
                 var sfd = new SaveFileDialog {
                                                  AddExtension = true,
-                                                 DefaultExt = "xml"
+                                                 DefaultExt = "xml",
+                                                 Filter = @"Aurora Translation file(s) (*.xml)|*.xml|All Files|*.*"
                                              };
                 if(sfd.ShowDialog() != DialogResult.OK)
                     return;
@@ -384,7 +387,7 @@
         }
 
         private bool IsLocaleMatch() {
-            foreach(var obj in _translationObjects) {
+            foreach(var obj in TranslationObjects) {
                 if(!obj.Name.EndsWith("LOCALE_VERSION", StringComparison.CurrentCultureIgnoreCase))
                     continue;
                 _locverObj = obj;
@@ -404,138 +407,145 @@
         }
 
         private void compilebtn_Click(object sender, EventArgs e) {
-            DialogResult res;
-            if(savetransbtn.Enabled) {
-                res = MessageBox.Show(@"Do you want to save the current changes before compiling?", @"Save before compiling?", MessageBoxButtons.YesNoCancel);
-                if(res == DialogResult.Yes)
-                    savetransbtn_Click(sender, e);
-                if(res == DialogResult.Cancel)
+            try {
+                DialogResult res;
+                if(savetransbtn.Enabled) {
+                    res = MessageBox.Show(@"Do you want to save the current changes before compiling?", @"Save before compiling?", MessageBoxButtons.YesNoCancel);
+                    if(res == DialogResult.Yes)
+                        savetransbtn_Click(sender, e);
+                    if(res == DialogResult.Cancel)
+                        return;
+                }
+                var langfile = _savepath;
+                OpenFileDialog ofd;
+                if(!keepsavepathbox.Checked || string.IsNullOrEmpty(_savepath) || !File.Exists(_savepath)) {
+                    ofd = new OpenFileDialog {
+                                                 Title = @"Select Language source",
+                                                 Filter = @"Aurora Translation file(s) (*.xml)|*.xml"
+                                             };
+                    res = ofd.ShowDialog();
+                    if(res != DialogResult.OK)
+                        return;
+                    langfile = ofd.FileName;
+                    if(keepsavepathbox.Checked)
+                        _savepath = langfile;
+                }
+                var lang = Path.GetFileNameWithoutExtension(langfile);
+                var xuipkg = GetBinPath("xuipkg.exe");
+                if(!File.Exists(xuipkg)) {
+                    MessageBox.Show(@"xuipkg.exe not found!", @"ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-            }
-            var langfile = _savepath;
-            OpenFileDialog ofd;
-            if(!keepsavepathbox.Checked || string.IsNullOrEmpty(_savepath) || !File.Exists(_savepath)) {
+                }
+                var resxloc = GetBinPath("resxloc.exe");
+                if(!File.Exists(GetBinPath("resxloc.exe"))) {
+                    MessageBox.Show(@"resxloc.exe not found!", @"ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // ReSharper disable once InconsistentNaming
+                var resx2bin = GetBinPath("resx2bin.exe");
+                if(!File.Exists(GetBinPath("resx2bin.exe"))) {
+                    MessageBox.Show(@"resx2bin.exe not found!", @"ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 ofd = new OpenFileDialog {
-                                             Title = @"Select Language source"
+                                             Title = @"Select skin",
+                                             Filter =  @"Aurora Skin File(s) (*.xzp)|*.xzp"
                                          };
                 res = ofd.ShowDialog();
-                if(res != DialogResult.OK)
+                if(res != DialogResult.OK && res != DialogResult.Cancel)
                     return;
-                langfile = ofd.FileName;
-                if(keepsavepathbox.Checked)
-                    _savepath = langfile;
+                if(res == DialogResult.Cancel) {
+                    if(File.Exists("skins\\default.xzp"))
+                        ofd.FileName = "skins\\default.xzp";
+                    else
+                        return;
+                }
+                var dir = Path.Combine(Path.GetTempPath(), "aurora_tmp");
+                try {
+                    Directory.Delete(dir, true);
+                }
+                catch(Exception) {}
+                Directory.CreateDirectory(dir);
+                Directory.CreateDirectory(Path.Combine(dir, "Locales"));
+                Directory.CreateDirectory(Path.Combine(dir, "Locales\\" + lang));
+                File.Copy(ofd.FileName, Path.Combine(dir, "default.xzp"));
+                File.Copy(langfile, Path.Combine(dir, "lang.xml"));
+                var proc = new Process {
+                                           StartInfo = new ProcessStartInfo {
+                                                                                Arguments = "/NOLOGO /U default.xzp",
+                                                                                WorkingDirectory = dir,
+                                                                                FileName = xuipkg
+                                                                            }
+                                       };
+                proc.Start();
+                proc.WaitForExit();
+                proc.StartInfo = new ProcessStartInfo {
+                                                          Arguments = "/NOLOGO lang.xml",
+                                                          WorkingDirectory = dir,
+                                                          FileName = resxloc
+                                                      };
+                proc.Start();
+                proc.WaitForExit();
+                proc.StartInfo = new ProcessStartInfo {
+                                                          Arguments = "/NOLOGO /I DynamicStrings.resx",
+                                                          WorkingDirectory = dir,
+                                                          FileName = resx2bin
+                                                      };
+                proc.Start();
+                proc.WaitForExit();
+                File.Delete(Path.Combine(dir, "DynamicStrings.resx"));
+                proc.StartInfo = new ProcessStartInfo {
+                                                          Arguments = "/NOLOGO *.resx",
+                                                          WorkingDirectory = dir,
+                                                          FileName = resx2bin
+                                                      };
+                proc.Start();
+                proc.WaitForExit();
+                foreach(var file in Directory.GetFiles(dir, "*.resx")) {
+                    if(file.EndsWith(".resx"))
+                        File.Delete(file);
+                }
+                var tmp = Path.Combine(dir, "..\\AuroraLang[" + lang + "].xus");
+                if(File.Exists(tmp))
+                    File.Delete(tmp);
+                File.Move(Path.Combine(dir, "DynamicStrings.xus"), tmp);
+                var langout = Path.Combine(dir, "Locales\\" + lang);
+                foreach(var file in Directory.GetFiles(dir, "*.xus")) {
+                    if(!file.EndsWith(".xus"))
+                        continue;
+                    var tout = Path.Combine(langout, Path.GetFileName(file));
+                    if(File.Exists(tout))
+                        File.Delete(tout);
+                    File.Move(file, tout);
+                }
+                File.Delete(Path.Combine(dir, "default.xzp"));
+                File.Delete(Path.Combine(dir, "lang.xml"));
+                proc.StartInfo = new ProcessStartInfo {
+                                                          Arguments = "/NOLOGO /R /O ..\\Default.xzp *.*",
+                                                          WorkingDirectory = dir,
+                                                          FileName = xuipkg
+                                                      };
+                proc.Start();
+                proc.WaitForExit();
+                // ReSharper disable once AssignNullToNotNullAttribute
+                var outdir = Path.Combine(Path.GetDirectoryName(langfile), Path.GetFileNameWithoutExtension(langfile) + "_Compiled");
+                try {
+                    Directory.Delete(outdir, true);
+                }
+                catch(Exception) {}
+                Directory.CreateDirectory(outdir);
+                Directory.CreateDirectory(Path.Combine(outdir, "Media\\Locales\\" + lang));
+                Directory.CreateDirectory(Path.Combine(outdir, "Skins"));
+                File.Move(Path.Combine(dir, "..\\AuroraLang[" + lang + "].xus"), Path.Combine(outdir, "Media\\Locales\\" + lang + "\\AuroraLang[" + lang + "].xus"));
+                File.Move(Path.Combine(dir, "..\\default.xzp"), Path.Combine(outdir, "Skins\\Default.xzp"));
+                try {
+                    Directory.Delete(dir, true);
+                }
+                catch(Exception) {}
             }
-            var lang = Path.GetFileNameWithoutExtension(langfile);
-            var xuipkg = GetBinPath("xuipkg.exe");
-            if(!File.Exists(xuipkg)) {
-                MessageBox.Show(@"xuipkg.exe not found!", @"ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+            catch(Exception ex) {
+                MessageBox.Show(string.Format("An error has occured: {0}{0}{1}", Environment.NewLine, ex));
             }
-            var resxloc = GetBinPath("resxloc.exe");
-            if(!File.Exists(GetBinPath("resxloc.exe"))) {
-                MessageBox.Show(@"resxloc.exe not found!", @"ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            // ReSharper disable once InconsistentNaming
-            var resx2bin = GetBinPath("resx2bin.exe");
-            if(!File.Exists(GetBinPath("resx2bin.exe"))) {
-                MessageBox.Show(@"resx2bin.exe not found!", @"ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            ofd = new OpenFileDialog {
-                                         Title = @"Select skin"
-                                     };
-            res = ofd.ShowDialog();
-            if(res != DialogResult.OK && res != DialogResult.Cancel)
-                return;
-            if(res == DialogResult.Cancel) {
-                if(File.Exists("skins\\default.xzp"))
-                    ofd.FileName = "skins\\default.xzp";
-                else
-                    return;
-            }
-            var dir = Path.Combine(Path.GetTempPath(), "aurora_tmp");
-            try {
-                Directory.Delete(dir, true);
-            }
-            catch(Exception) {}
-            Directory.CreateDirectory(dir);
-            Directory.CreateDirectory(Path.Combine(dir, "Locales"));
-            Directory.CreateDirectory(Path.Combine(dir, "Locales\\" + lang));
-            File.Copy(ofd.FileName, Path.Combine(dir, "default.xzp"));
-            File.Copy(langfile, Path.Combine(dir, "lang.xml"));
-            var proc = new Process {
-                                       StartInfo = new ProcessStartInfo {
-                                                                            Arguments = "/NOLOGO /U default.xzp",
-                                                                            WorkingDirectory = dir,
-                                                                            FileName = xuipkg
-                                                                        }
-                                   };
-            proc.Start();
-            proc.WaitForExit();
-            proc.StartInfo = new ProcessStartInfo {
-                                                      Arguments = "/NOLOGO lang.xml",
-                                                      WorkingDirectory = dir,
-                                                      FileName = resxloc
-                                                  };
-            proc.Start();
-            proc.WaitForExit();
-            proc.StartInfo = new ProcessStartInfo {
-                                                      Arguments = "/NOLOGO /I DynamicStrings.resx",
-                                                      WorkingDirectory = dir,
-                                                      FileName = resx2bin
-                                                  };
-            proc.Start();
-            proc.WaitForExit();
-            File.Delete(Path.Combine(dir, "DynamicStrings.resx"));
-            proc.StartInfo = new ProcessStartInfo {
-                                                      Arguments = "/NOLOGO *.resx",
-                                                      WorkingDirectory = dir,
-                                                      FileName = resx2bin
-                                                  };
-            proc.Start();
-            proc.WaitForExit();
-            foreach(var file in Directory.GetFiles(dir, "*.resx")) {
-                if(file.EndsWith(".resx"))
-                    File.Delete(file);
-            }
-            var tmp = Path.Combine(dir, "..\\AuroraLang[" + lang + "].xus");
-            if(File.Exists(tmp))
-                File.Delete(tmp);
-            File.Move(Path.Combine(dir, "DynamicStrings.xus"), tmp);
-            var langout = Path.Combine(dir, "Locales\\" + lang);
-            foreach(var file in Directory.GetFiles(dir, "*.xus")) {
-                if(!file.EndsWith(".xus"))
-                    continue;
-                var tout = Path.Combine(langout, Path.GetFileName(file));
-                if(File.Exists(tout))
-                    File.Delete(tout);
-                File.Move(file, tout);
-            }
-            File.Delete(Path.Combine(dir, "default.xzp"));
-            File.Delete(Path.Combine(dir, "lang.xml"));
-            proc.StartInfo = new ProcessStartInfo {
-                                                      Arguments = "/NOLOGO /R /O ..\\Default.xzp *.*",
-                                                      WorkingDirectory = dir,
-                                                      FileName = xuipkg
-                                                  };
-            proc.Start();
-            proc.WaitForExit();
-            // ReSharper disable once AssignNullToNotNullAttribute
-            var outdir = Path.Combine(Path.GetDirectoryName(langfile), Path.GetFileNameWithoutExtension(langfile) + "_Compiled");
-            try {
-                Directory.Delete(outdir, true);
-            }
-            catch(Exception) {}
-            Directory.CreateDirectory(outdir);
-            Directory.CreateDirectory(Path.Combine(outdir, "Media\\Locales\\" + lang));
-            Directory.CreateDirectory(Path.Combine(outdir, "Skins"));
-            File.Move(Path.Combine(dir, "..\\AuroraLang[" + lang + "].xus"), Path.Combine(outdir, "Media\\Locales\\" + lang + "\\AuroraLang[" + lang + "].xus"));
-            File.Move(Path.Combine(dir, "..\\default.xzp"), Path.Combine(outdir, "Skins\\Default.xzp"));
-            try {
-                Directory.Delete(dir, true);
-            }
-            catch(Exception) {}
         }
 
         private void FilterChanged(object sender, EventArgs e) { Setviewitems(); }
@@ -543,7 +553,7 @@
         private void setFinishedToolStripMenuItem_Click(object sender, EventArgs e) {
             foreach(ListViewItem sel in listview.SelectedItems) {
                 var id = int.Parse(sel.Tag.ToString());
-                foreach(var translationObject in _translationObjects) {
+                foreach(var translationObject in TranslationObjects) {
                     if(translationObject.Id != id)
                         continue;
                     translationObject.SetFinished();
@@ -567,7 +577,7 @@
                 return;
             foreach(ListViewItem sel in listview.SelectedItems) {
                 var id = int.Parse(sel.Tag.ToString());
-                foreach(var translationObject in _translationObjects) {
+                foreach(var translationObject in TranslationObjects) {
                     if(translationObject.Id != id)
                         continue;
                     translationObject.SetFinished(false);
@@ -607,7 +617,7 @@
             var list = new List<ListViewItem>();
             foreach(ListViewItem sel in listview.SelectedItems) {
                 var orig = sel.SubItems[1].Text;
-                foreach(var translationObject in _translationObjects) {
+                foreach(var translationObject in TranslationObjects) {
                     if(translationObject.Original != orig)
                         continue;
                     translationObject.SetFinished();
@@ -649,7 +659,7 @@
             public override string ToString() { return !All ? Value : "All"; }
         }
 
-        private class TranslationObject {
+        internal class TranslationObject {
             internal readonly int Id;
             internal readonly string Name;
             internal string Original;

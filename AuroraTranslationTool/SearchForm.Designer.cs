@@ -41,6 +41,7 @@
             this.startswithbox = new System.Windows.Forms.RadioButton();
             this.okbtn = new System.Windows.Forms.Button();
             this.abortbtn = new System.Windows.Forms.Button();
+            this.searchAll = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -67,6 +68,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.searchAll);
             this.groupBox2.Controls.Add(this.ignorecasebox);
             this.groupBox2.Controls.Add(this.searchtransbox);
             this.groupBox2.Controls.Add(this.searchorigbox);
@@ -77,7 +79,7 @@
             this.groupBox2.Controls.Add(this.startswithbox);
             this.groupBox2.Location = new System.Drawing.Point(6, 54);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(506, 75);
+            this.groupBox2.Size = new System.Drawing.Size(506, 102);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Search Options";
@@ -176,7 +178,7 @@
             // 
             this.okbtn.Enabled = false;
             this.okbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okbtn.Location = new System.Drawing.Point(323, 135);
+            this.okbtn.Location = new System.Drawing.Point(323, 162);
             this.okbtn.Name = "okbtn";
             this.okbtn.Size = new System.Drawing.Size(189, 41);
             this.okbtn.TabIndex = 2;
@@ -187,7 +189,7 @@
             // abortbtn
             // 
             this.abortbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.abortbtn.Location = new System.Drawing.Point(6, 135);
+            this.abortbtn.Location = new System.Drawing.Point(6, 162);
             this.abortbtn.Name = "abortbtn";
             this.abortbtn.Size = new System.Drawing.Size(189, 41);
             this.abortbtn.TabIndex = 2;
@@ -195,12 +197,22 @@
             this.abortbtn.UseVisualStyleBackColor = true;
             this.abortbtn.Click += new System.EventHandler(this.abortbtn_Click);
             // 
+            // searchAll
+            // 
+            this.searchAll.AutoSize = true;
+            this.searchAll.Location = new System.Drawing.Point(6, 75);
+            this.searchAll.Name = "searchAll";
+            this.searchAll.Size = new System.Drawing.Size(170, 21);
+            this.searchAll.TabIndex = 3;
+            this.searchAll.Text = "Search all translations";
+            this.searchAll.UseVisualStyleBackColor = true;
+            // 
             // SearchForm
             // 
             this.AcceptButton = this.okbtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 179);
+            this.ClientSize = new System.Drawing.Size(518, 206);
             this.Controls.Add(this.abortbtn);
             this.Controls.Add(this.okbtn);
             this.Controls.Add(this.groupBox2);
@@ -208,7 +220,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "SearchForm";
             this.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.Text = "SearchForm";
+            this.Text = "Search / Custom Filter";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -232,5 +244,6 @@
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.Button abortbtn;
         private System.Windows.Forms.CheckBox ignorecasebox;
+        private System.Windows.Forms.CheckBox searchAll;
     }
 }
