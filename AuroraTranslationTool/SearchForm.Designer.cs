@@ -31,6 +31,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.searchtermbox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.searchAll = new System.Windows.Forms.CheckBox();
             this.ignorecasebox = new System.Windows.Forms.CheckBox();
             this.searchtransbox = new System.Windows.Forms.CheckBox();
             this.searchorigbox = new System.Windows.Forms.CheckBox();
@@ -41,7 +42,6 @@
             this.startswithbox = new System.Windows.Forms.RadioButton();
             this.okbtn = new System.Windows.Forms.Button();
             this.abortbtn = new System.Windows.Forms.Button();
-            this.searchAll = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -83,6 +83,16 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Search Options";
+            // 
+            // searchAll
+            // 
+            this.searchAll.AutoSize = true;
+            this.searchAll.Location = new System.Drawing.Point(6, 75);
+            this.searchAll.Name = "searchAll";
+            this.searchAll.Size = new System.Drawing.Size(170, 21);
+            this.searchAll.TabIndex = 3;
+            this.searchAll.Text = "Search all translations";
+            this.searchAll.UseVisualStyleBackColor = true;
             // 
             // ignorecasebox
             // 
@@ -197,16 +207,6 @@
             this.abortbtn.UseVisualStyleBackColor = true;
             this.abortbtn.Click += new System.EventHandler(this.abortbtn_Click);
             // 
-            // searchAll
-            // 
-            this.searchAll.AutoSize = true;
-            this.searchAll.Location = new System.Drawing.Point(6, 75);
-            this.searchAll.Name = "searchAll";
-            this.searchAll.Size = new System.Drawing.Size(170, 21);
-            this.searchAll.TabIndex = 3;
-            this.searchAll.Text = "Search all translations";
-            this.searchAll.UseVisualStyleBackColor = true;
-            // 
             // SearchForm
             // 
             this.AcceptButton = this.okbtn;
@@ -244,6 +244,6 @@
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.Button abortbtn;
         private System.Windows.Forms.CheckBox ignorecasebox;
-        private System.Windows.Forms.CheckBox searchAll;
+        internal System.Windows.Forms.CheckBox searchAll;
     }
 }

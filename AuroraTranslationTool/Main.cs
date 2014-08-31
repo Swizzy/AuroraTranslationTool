@@ -12,8 +12,8 @@
     using System.Xml;
 
     public sealed partial class Main: Form {
-        private readonly List<SectionFilter> _sectionFilters = new List<SectionFilter>();
         internal readonly List<TranslationObject> TranslationObjects = new List<TranslationObject>();
+        private readonly List<SectionFilter> _sectionFilters = new List<SectionFilter>();
         internal SearchForm LastSearch;
         private TranslationObject _currObj;
         private TranslationObject _locverObj;
@@ -72,11 +72,17 @@
 
         protected override bool ProcessCmdKey(ref Message message, Keys keys) {
             if(keys == (Keys.F | Keys.Control)) {
-                if(listview.Items.Count > 0) {
-                    if(LastSearch != null)
-                        LastSearch.ShowDialog();
+                if(listview.Items.Count > 0 || TranslationObjects.Count > 0) {
+                    if(LastSearch == null)
+                        LastSearch = new SearchForm(this);
+                    if(listview.Items.Count <= 1) {
+                        LastSearch.searchAll.Checked = true;
+                        LastSearch.searchAll.Enabled = false;
+                    }
                     else
-                        new SearchForm(this).ShowDialog();
+                        LastSearch.searchAll.Enabled = true;
+
+                    LastSearch.ShowDialog();
                     return true;
                 }
             }
@@ -449,7 +455,7 @@
                 }
                 ofd = new OpenFileDialog {
                                              Title = @"Select skin",
-                                             Filter =  @"Aurora Skin File(s) (*.xzp)|*.xzp"
+                                             Filter = @"Aurora Skin File(s) (*.xzp)|*.xzp"
                                          };
                 res = ofd.ShowDialog();
                 if(res != DialogResult.OK && res != DialogResult.Cancel)

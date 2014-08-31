@@ -44,6 +44,11 @@ Ctrl + Mousewheel -> Change the text size of the textboxes and listview
 =============
 = Changelog =
 =============
+v1.1.14
+- Fixed: Crash while searching with the search form if no original was loaded
+- Fixed: You can now always search, if you have nothing listed you're automatically limited to only searching ALL items
+- Fixed: You can now search with the "Equals" type aswell with when searching all items
+
 v1.1.13
 - Added: Filters for when you're asked for translation/skin, previously it caused confusion for some, now you don't even see the other type of file(s)
 - Added: The app will no longer crash on error while compiling the translation, instead you'll be shown what the error was and it'll continue from there...
