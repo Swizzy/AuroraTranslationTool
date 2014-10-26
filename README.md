@@ -44,6 +44,11 @@ Ctrl + Mousewheel -> Change the text size of the textboxes and listview
 =============
 = Changelog =
 =============
+v2.0.15
+ - Updated: The tool now requires .NET Framework 3.5 due to using the built-in JSON serialization
+ - Removed: The ability to compile Skins is no longer a part of this tool, instead it's now compiling "Language Packs"
+ - Added: When you press Compile, it'll now open up a new form which have the details needed for a language pack
+
 v1.1.14
 - Fixed: Crash while searching with the search form if no original was loaded
 - Fixed: You can now always search, if you have nothing listed you're automatically limited to only searching ALL items
