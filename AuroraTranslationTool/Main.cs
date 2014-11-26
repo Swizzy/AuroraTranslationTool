@@ -216,7 +216,7 @@
                         continue;
                     switch(xml.Name.ToLower()) {
                         case "data":
-                            name = xml["name"];
+                            name = xml[0]; // It should be the first (only) attribute anyways ;)
                             break;
                         case "value":
                             TranslationObject tobj = null;

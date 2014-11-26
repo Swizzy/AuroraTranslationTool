@@ -44,6 +44,9 @@ Ctrl + Mousewheel -> Change the text size of the textboxes and listview
 =============
 = Changelog =
 =============
+v2.0.17
+ - Fixed: Previous fix only worked while in compiling mode... turns out, my tool is just as bad as microsofts tools! it missed out on anything that isn't 100% accurate >_< it now also corrects every other aspect of the tags aswell meaning: any case of <data name="..."><value>...</value></data> will now be lowercased properly... but this only occurs if you etheir load and save the translation or compile your translation...
+
 v2.0.16
  - Fixed: If you for any reason decided to manually edit the data and you ended up with <data Name="..."><value>...</value></data> this will now be corrected for you during compilation to be the correct format: <data name="..."><value>...</value></data>
    It's a critical thing because microsoft's tools are case-sensitive, why? because they didn't think anyone would actually do manual edits to resx files...

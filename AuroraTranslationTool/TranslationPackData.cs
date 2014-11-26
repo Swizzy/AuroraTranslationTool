@@ -199,7 +199,11 @@ namespace AuroraTranslationTool {
             if(Directory.Exists(dir))
                 Directory.Delete(dir, true); // Make sure it's clean!
             Directory.CreateDirectory(dir);
-            File.WriteAllText(Path.Combine(dir, "lang.xml"), Regex.Replace(File.ReadAllText(src), "<data Name=", "<data name="));
+            var xml = Regex.Replace(File.ReadAllText(src), "<data name=", "<data name=", RegexOptions.IgnoreCase);
+            xml = Regex.Replace(xml, "<value>", "<value>", RegexOptions.IgnoreCase);
+            xml = Regex.Replace(xml, "</value>", "</value>", RegexOptions.IgnoreCase);
+            xml = Regex.Replace(xml, "</data>", "</data>", RegexOptions.IgnoreCase);
+            File.WriteAllText(Path.Combine(dir, "lang.xml"), xml);
             SaveDat(Path.Combine(dir, "language.dat"), GetVersion(src));
             var proc = new Process {
                                        StartInfo = new ProcessStartInfo {
