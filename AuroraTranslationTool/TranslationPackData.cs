@@ -10,6 +10,7 @@ namespace AuroraTranslationTool {
     using System.Linq;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Json;
+    using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using System.Xml;
     using AuroraTranslationTool.Properties;
@@ -198,7 +199,7 @@ namespace AuroraTranslationTool {
             if(Directory.Exists(dir))
                 Directory.Delete(dir, true); // Make sure it's clean!
             Directory.CreateDirectory(dir);
-            File.Copy(src, Path.Combine(dir, "lang.xml"));
+            File.WriteAllText(Path.Combine(dir, "lang.xml"), Regex.Replace(File.ReadAllText(src), "<data Name=", "<data name="));
             SaveDat(Path.Combine(dir, "language.dat"), GetVersion(src));
             var proc = new Process {
                                        StartInfo = new ProcessStartInfo {

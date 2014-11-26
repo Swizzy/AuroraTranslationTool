@@ -44,6 +44,10 @@ Ctrl + Mousewheel -> Change the text size of the textboxes and listview
 =============
 = Changelog =
 =============
+v2.0.16
+ - Fixed: If you for any reason decided to manually edit the data and you ended up with <data Name="..."><value>...</value></data> this will now be corrected for you during compilation to be the correct format: <data name="..."><value>...</value></data>
+   It's a critical thing because microsoft's tools are case-sensitive, why? because they didn't think anyone would actually do manual edits to resx files...
+
 v2.0.15
  - Updated: The tool now requires .NET Framework 3.5 due to using the built-in JSON serialization
  - Removed: The ability to compile Skins is no longer a part of this tool, instead it's now compiling "Language Packs"
