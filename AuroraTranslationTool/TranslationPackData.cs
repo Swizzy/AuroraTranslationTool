@@ -214,8 +214,12 @@ namespace AuroraTranslationTool {
                                    };
             proc.Start();
             proc.WaitForExit();
+            
+            // Change the resx2Bin build flags based on the version of the localization
+            var resx2BinFlags = "/I"; float version = 0.0f;
+            if (float.TryParse(GetVersion(src), out version) == true ) { if ( version >= 0.7f) resx2BinFlags = ""; }
             proc.StartInfo = new ProcessStartInfo {
-                                                      Arguments = "/NOLOGO /I DynamicStrings.resx",
+                                                      Arguments = "/NOLOGO " + resx2BinFlags + " DynamicStrings.resx",
                                                       WorkingDirectory = dir,
                                                       FileName = resx2Bin
                                                   };
