@@ -3,6 +3,8 @@ Aurora Translation Tool
 
 ** NOTE: Using the compiler within this tool isn't working anylonger, for the new compiler see this project: https://github.com/XboxUnity/AuroraLanguagePackCompiler **
 
+** NOTE: The latest version of this project can be found here from now on: https://github.com/XboxUnity/AuroraTranslationTool **
+
 =================
 = What is this? =
 =================
